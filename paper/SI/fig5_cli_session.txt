@@ -1,0 +1,162 @@
+# Fig.5 raw terminal session, captured by make_fig5_cli.py
+# KINSTEP_LANG=en, run in a clean temporary directory.
+# The figure shows a selection of these lines; this file is complete.
+
+==============================================================================
+$ kinstep new --template her her.kinstep.toml
+==============================================================================
+✓ wrote her.kinstep.toml - hydrogen evolution, HER (Volmer-Heyrovsky-Tafel)
+   all 3 mechanism steps are filled in; 6 energy slots are left for you (each one says what to compute)
+   source: Volmer-Heyrovsky-Tafel mechanism; for the dG_H* volcano see Norskov et al. J. Electrochem. Soc. 2005, 152, J23
+   · H+ appears explicitly in the mechanism, so the potential MUST be on the SHE scale - using RHE would count pH twice
+   · the Tafel slope identifies the rate-determining step: Volmer ~120, Heyrovsky ~40, Tafel ~30 mV/dec
+
+   next: kinstep check her.kinstep.toml   # it tells you, item by item, what is still missing
+
+@@@CAT her.kinstep.toml
+# her - hydrogen evolution, HER (Volmer-Heyrovsky-Tafel)
+# source: Volmer-Heyrovsky-Tafel mechanism; for the dG_H* volcano see Norskov et al. J. Electrochem. Soc. 2005, 152, J23
+# ! This template carries NO energy values - the mechanism is public knowledge, the energies are private data for your own system.
+#    every [[steps]] block below needs Ga_fwd and dG_rxn (eV) from you.
+
+[mechanism]
+text = '''
+H+ + e- + * <-> H*            {beta_ct: 0.5}
+H* + H+ + e- -> H2 + *        {beta_ct: 0.5}
+2H* -> H2 + 2*
+'''
+
+[conditions]
+T_K = 298.15
+c_liq = { "H+" = 1.0 }
+p_gas = { H2 = 1.0 }
+
+[drivers.electro]
+U_elec = 0.0
+U_ref = 'SHE'
+pH_val = 0.0
+gamma_site = 2.2e-05
+
+[[steps]]
+# (1) H+ + e- + * <-> H*
+#     what to compute: Volmer step - the key quantity is dG_H* (hydrogen adsorption free energy)
+# Ga_fwd = ?   # forward activation free energy (eV) - uncomment once filled in
+# dG_rxn = ?   # reaction free energy (eV)
+
+[[steps]]
+# (2) H* + H+ + e- -> H2 + *
+#     what to compute: Heyrovsky step
+# Ga_fwd = ?   # forward activation free energy (eV) - uncomment once filled in
+# dG_rxn = ?   # reaction free energy (eV)
+
+[[steps]]
+# (3) 2H* -> H2 + 2*
+#     what to compute: Tafel step (chemical recombination, no electron transfer)
+# Ga_fwd = ?   # forward activation free energy (eV) - uncomment once filled in
+# dG_rxn = ?   # reaction free energy (eV)
+
+[solver]
+precision = "auto"
+exit code: 0
+
+==============================================================================
+$ kinstep check her.kinstep.toml
+==============================================================================
+
+[1/5] mechanism
+──────────────────────────────
+mechanism: 3 steps, 5 species, site type(s) ['default']
+  (1) H+ + e- + * <-> H*  [electrochemical, nu_elec=-1]
+  (2) H* + H+ + e- -> H2 + *  [electrochemical, nu_elec=-1]
+  (3) 2H* -> H2 + 2*
+gas: ['H2']
+liquid: ['H+']
+surface: ['H*']
+  ✓ all four gates passed (element/charge balance, site balance, reserved-name clash, arrow syntax)
+
+[2/5] operating conditions
+──────────────────────────────
+  temperature T_K = 298.15 K
+  gas partial pressures: H2=1
+  liquid concentrations: H+=1
+
+[3/5] energetics and provenance
+───────────────────────────────
+✗ provenance gate rejected the input:
+[6 value(s) missing]
+  step 1 / Ga_fwd -- step 1 uses transition-state theory and needs the forward activation free energy Ga_fwd (eV)
+  step 1 / dG_rxn -- step 1 needs the reaction free energy dG_rxn (eV) = G(products) - G(reactants); it fixes the reverse rate constant kr = kf/Keq
+  step 2 / Ga_fwd -- step 2 uses transition-state theory and needs the forward activation free energy Ga_fwd (eV)
+  step 2 / dG_rxn -- step 2 needs the reaction free energy dG_rxn (eV) = G(products) - G(reactants); it fixes the reverse rate constant kr = kf/Keq
+  step 3 / Ga_fwd -- step 3 uses transition-state theory and needs the forward activation free energy Ga_fwd (eV)
+  step 3 / dG_rxn -- step 3 needs the reaction free energy dG_rxn (eV) = G(products) - G(reactants); it fixes the reverse rate constant kr = kf/Keq
+exit code: 3
+
+==============================================================================
+$ kinstep ask "hydrogen evolution at pH 0, -0.1 V vs SHE, 25 C"
+==============================================================================
+
+what was understood
+──────────────────────────────
+what was understood (rule-based translation, no LLM)
+  input: hydrogen evolution at pH 0, -0.1 V vs SHE, 25 C
+  matched system: her —— hydrogen evolution, HER (Volmer-Heyrovsky-Tafel) [electro]
+  values extracted from your sentence (all tagged user_given):
+     U_elec = -0.1  <- from "-0.1 v"
+     U_ref = SHE  <- from "vs SHE" (reference scale (not a number))
+     pH_val = 0  <- from "ph 0"
+  ★ still needed from you (this module will never guess these):
+     · the energies of all 3 steps (Ga_fwd and dG_rxn per step, in eV) - this is the part only you can supply:
+     ·     (1) H+ + e- + * <-> H*   <- Volmer step - the key quantity is dG_H* (hydrogen adsorption free energy)
+     ·     (2) H* + H+ + e- -> H2 + *   <- Heyrovsky step
+     ·     (3) 2H* -> H2 + 2*   <- Tafel step (chemical recombination, no electron transfer)
+     · temperature (K or degC); the typical value for this system is 298.15 K, but use your own experiment
+     · active-site areal density gamma_site (mol/m2), used to convert the surface rate into a current density
+exit code: 0
+
+==============================================================================
+$ kinstep run ammonia.kinstep.toml --drc
+==============================================================================
+
+steady-state result
+──────────────────────────────
+steady state (ode(4 continuation stages up to 4.9e+03 s) → damped-newton(1 steps, analytic Jacobian, clamp+backtracking) -> high-precision(50 digits), 3 iterations, converged)
+  coverages:  H*=0.219289  N*=6.07382e-07  NH*=3.81309e-06  NH2*=0.0025178
+  vacancies:  *=0.778189
+  site-balance error: *:0.00e+00
+  scaled residual ||F||_inf = 1.855e-50
+  net rate per step (after flux projection): r1=1.01189e-08  r2=3.37296e-09  r3=6.74591e-09  r4=6.74591e-09  r5=6.74591e-09
+  per-step 1-z and attainable precision:
+     step 1  1-z=1.027e-13    attainable rel. precision 9.7e-04   (~3 digits)  <- inferred from flux conservation
+     step 2  1-z=0.9955       attainable rel. precision 1.0e-16   (~15 digits)
+     step 3  1-z=0.0001163    attainable rel. precision 8.6e-13   (~12 digits)
+     step 4  1-z=5.519e-05    attainable rel. precision 1.8e-12   (~11 digits)
+     step 5  1-z=3.27e-05     attainable rel. precision 3.1e-12   (~11 digits)
+  flux-projection correction = 0.00e+00 (i.e. how far the raw solution was from flux consistency)
+  ✓ flux-conservation self-check: max relative residual 4.09e-17
+  ⚠ step 1 is quasi-equilibrated: 1-z = 1.027e-13, so on its own it reaches only 9.7e-04 relative precision (~3 significant digits); its net rate was inferred from the other steps by flux conservation.
+
+degree of rate control (DRC)
+──────────────────────────────
+  (finite-difference step delta=2.0e-03 chosen automatically by Campbell's sum rule)
+DRC (delta = 2.00e-03 eV, target = NH2* + H* <-> NH3 + 2*)
+  step-wise DRC (Campbell):
+     step 1  H2 + 2* <-> 2H*              X_B = -0.000000
+     step 2  N2 + 2* <-> 2N*              X_B = +0.999998
+     step 3  N* + H* <-> NH* + *          X_B = +0.000001
+     step 4  NH* + H* <-> NH2* + *        X_B = +0.000000
+     step 5  NH2* + H* <-> NH3 + 2*       X_B = +0.000000
+     ★ sum rule  sum X_B = 1.000000000 (should be 1; deviation 2.9e-13)
+  intermediate DRC:
+     H*       X_I = -0.438577
+     N*       X_I = -0.000001
+     NH*      X_I = -0.000008
+     NH2*     X_I = -0.005036
+     *        X_I = -1.556378
+     sum X_I = -2.000000
+  reaction orders: H2: -0.2033  N2: +1.0045  NH3: -0.0140
+  apparent activation energy Ea_app = 3.016887 eV
+  ✓ sum rule  sum X_B = 1.000000000000 (deviation 2.9e-13)
+
+  text report -> ammonia.kinstep_out/result.txt
+exit code: 0

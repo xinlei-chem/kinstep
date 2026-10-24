@@ -1,0 +1,40 @@
+# 源码分发（sdist）里放什么。★ 关键是把 refdata_local/ 整个排掉，理由见 RELEASE_NOTES.md：
+#   · refdata_local/catmap/ 是 CatMAP（GPLv3）上游完整克隆，9.3 MB，对回归无用（本套回归
+#     的真值一个字节都不来自 CatMAP），留着只会让人误以为本包衍生自它；
+#   · CATKINAS 的算例输出是闭源发行物自带数据，未授再分发。
+include LICENSE
+include CITATION.cff
+include README.md
+include ATTRIBUTION.md
+include RELEASE_NOTES.md
+include EXAMPLES.md
+# 中文版同收：正文是英文（CPC 的读者），中文版便于原作者维护，两者内容一一对应。
+include README.zh-CN.md
+include ATTRIBUTION.zh-CN.md
+include RELEASE_NOTES.zh-CN.md
+include EXAMPLES.zh-CN.md
+include run_all_tests.sh
+recursive-include tests *.py
+# ★ 参考值存档：有了它，原先要靠第三方闭源件才能跑的 6 套回归与 Fig.2 在干净存档里
+#   也能跑（只含断言/作图实际用到的数组，生成脚本 tests/make_catkinas_refdata.py）。
+include tests/catkinas_refdata.npz
+recursive-include examples *.py
+# notes/ 是内部开发台账（中文、2000+ 行、含开发过程细节），不随存档发布。
+# 失败日志仍会写到 notes/ 下，所以 run_all_tests.sh 会自己 mkdir。
+# 论文材料：出图脚本 + 可作图原始数据 + 矢量图。
+# 不收 .docx/.png —— 手稿本身走期刊，位图体积大且由脚本可重出。
+recursive-include paper *.py *.md
+include paper/highlights.txt
+# ★ *.txt 不能漏：SI 正文写明 fig5 的完整终端会话「deposited with the SI」，
+#   而第一版只收了 *.dat *.npz，那句话就成了空头支票。
+recursive-include paper/SI *.dat *.npz *.txt
+# ★ CatMAP 对照的导出值（GPLv3，须引用 Medford 2015）：只收它的求解输出，
+#   不收 CatMAP 本体。没有它 paper/compare_catmap.py 就跑不了。
+include paper/SI/catmap_co_oxidation.json
+recursive-include paper/figures *.pdf
+prune refdata_local
+# ★ prune 要显式写出来：只是"不 include"还不够 —— setuptools 会从上一次留下的
+#   kinstep.egg-info/SOURCES.txt 里把旧清单带回来，实测 DEVLOG.md 就是这么混进包的。
+prune notes
+prune kinstep.egg-info
+global-exclude *.pyc __pycache__ *.npz.tmp

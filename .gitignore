@@ -1,0 +1,33 @@
+# ── 第三方参考数据：绝不入库 ──
+# refdata_local/catkinas/ 是闭源发行物自带数据（未授再分发）；
+# refdata_local/catmap/ 是 CatMAP 上游完整克隆（GPLv3，可再分发，但 9.3 MB 且对回归无用）。
+refdata_local/
+
+# ── 构建产物 ──
+dist/
+build/
+*.egg-info/
+__pycache__/
+*.py[cod]
+
+# ── 论文的二进制成品 ──
+# docx/pdf 投稿成品与 PNG 位图不入库（由 build_docx.py / make_figures.py 可重出）。
+# 但 paper/figures/*.pdf 是矢量图成品，**故意入库**：共 436 KB，
+# 审稿人和用户 clone 下来就能直接看图，不必装 matplotlib 重跑。
+paper/*.docx
+paper/*.pdf
+paper/figures/*.png
+paper/SI/*.png
+
+# ── 改稿时的时间戳备份，绝不进公开仓库 ──
+*.bak.*
+
+# ── 本地环境 ──
+.venv/
+.ipynb_checkpoints/
+*.npz.tmp
+
+# ── 内部开发台账与运行日志 ──
+# 与存档口径一致（RELEASE_NOTES.md 第四节）：notes/ 是中文内部记录，不进公开仓库。
+# 要公开它，把下面这行删掉即可。
+notes/

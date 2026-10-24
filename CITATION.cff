@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use KinSTEP, please cite the software and the accompanying paper."
+title: "KinSTEP: a verified microkinetic solver spanning thermal, electro-, photo- and sonocatalysis"
+abstract: >-
+  A pure-Python microkinetic modelling package whose numerical core is modality-agnostic:
+  thermal, electrochemical, photochemical and sonochemical catalysis share one verified
+  solver, with the external stimulus entering through a small driver interface.
+type: software
+license: GPL-3.0-or-later
+version: "0.1.0"
+repository-code: "https://github.com/xinlei-chem/kinstep"
+keywords:
+  - microkinetic modelling
+  - heterogeneous catalysis
+  - electrocatalysis
+  - photocatalysis
+  - sonocatalysis
+  - degree of rate control
+authors:
+  - family-names: "Lei"
+    given-names: "Xin"
+    email: "xin.lei@wit.edu.cn"
+    orcid: "https://orcid.org/0000-0002-2466-3891"
+    affiliation: "School of Chemical Engineering and Pharmacy, Wuhan Institute of Technology, Wuhan 430205, China"
+preferred-citation:
+  type: article
+  title: "KinSTEP: a verified microkinetic solver spanning thermal, electro-, photo- and sonocatalysis"
+  journal: "Computer Physics Communications"
+  year: 2026
+  authors:
+    - family-names: "Lei"
+      given-names: "Xin"
+      email: "xin.lei@wit.edu.cn"
+      orcid: "https://orcid.org/0000-0002-2466-3891"
+      affiliation: "School of Chemical Engineering and Pharmacy, Wuhan Institute of Technology, Wuhan 430205, China"
