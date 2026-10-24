@@ -125,7 +125,7 @@ in Fig. S1(b).
 **Table S6.** Effect of the error-bar choice in the weighted projection onto
 $\{r:\nu^{\mathsf{T}}r=0\}$, ammonia synthesis at 700 K.
 
-| Quantity | No projection | $\sigma=|r|\varepsilon/(1-z)$ | $\sigma=R_f\varepsilon$ |
+| Quantity | No projection | $\sigma=\lvert r\rvert\varepsilon/(1-z)$ | $\sigma=R_f\varepsilon$ |
 |---|---|---|---|
 | N-element flux residual | $1.4\times10^{-15}$ | — | $4.4\times10^{-16}$ |
 | H-element flux residual | $1.55\times10^{-7}$ | — | $2.22\times10^{-16}$ |
@@ -196,11 +196,11 @@ tolerance to be tightened sevenfold (0.35 → 0.05) rather than loosened.
 
 | Step | Reaction | $\delta G^\ddagger$ (eV) | $\delta\Delta G$ (eV) | reference | deviation |
 |---|---|---|---|---|---|
-| 1 | H$_2$ + 2* $\leftrightarrow$ 2H* | $+1.077301$ | $+1.077301$ | $+1.077301$ | $1.9\times10^{-10}$ |
-| 2 | N$_2$ + 2* $\leftrightarrow$ 2N* | $+1.504256$ | $+1.504256$ | $+1.504256$ | $1.9\times10^{-10}$ |
-| 3 | N* + H* $\leftrightarrow$ NH* + * | $0$ | $0$ | $0$ | $0$ |
-| 4 | NH* + H* $\leftrightarrow$ NH$_2$* + * | $0$ | $0$ | $0$ | $0$ |
-| 5 | NH$_2$* + H* $\leftrightarrow$ NH$_3$ + 2* | $0$ | $-1.575974$ | $-1.575974$ | $1.9\times10^{-10}$ |
+| 1 | `H2 + 2* <-> 2H*` | $+1.077301$ | $+1.077301$ | $+1.077301$ | $1.9\times10^{-10}$ |
+| 2 | `N2 + 2* <-> 2N*` | $+1.504256$ | $+1.504256$ | $+1.504256$ | $1.9\times10^{-10}$ |
+| 3 | `N* + H* <-> NH* + *` | $0$ | $0$ | $0$ | $0$ |
+| 4 | `NH* + H* <-> NH2* + *` | $0$ | $0$ | $0$ | $0$ |
+| 5 | `NH2* + H* <-> NH3 + 2*` | $0$ | $-1.575974$ | $-1.575974$ | $1.9\times10^{-10}$ |
 
 ---
 

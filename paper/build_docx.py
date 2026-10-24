@@ -122,10 +122,12 @@ FIGCAP = {
 PROGRAM_SUMMARY = [
  ("Program Title", "KinSTEP"),
  ("CPC Library link to program files", "(to be added by Technical Editor)"),
- ("Developer's repository link", "https://github.com/xinlei-chem/kinstep"),
+ ("Developer's repository link",
+  "https://github.com/xinlei-chem/kinstep (version v0.1.0 archived at "
+  "https://doi.org/10.5281/zenodo.23613004)"),
  ("Code Ocean capsule", "(to be added by Technical Editor)"),
  ("Licensing provisions", "GPL-3.0-or-later"),
- ("Programming language", "Python 3.11+"),
+ ("Programming language", "Python 3.9+ (tested on CPython 3.12)"),
  ("Supplementary material",
   "Supplementary Information: verification tables, constant conventions, benchmark data, "
   "full self-check output"),

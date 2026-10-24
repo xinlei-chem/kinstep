@@ -9,6 +9,14 @@ type: software
 license: GPL-3.0-or-later
 version: "0.1.0"
 repository-code: "https://github.com/xinlei-chem/kinstep"
+doi: "10.5281/zenodo.23613003"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.23613003"
+    description: "Concept DOI; always resolves to the latest version."
+  - type: doi
+    value: "10.5281/zenodo.23613004"
+    description: "DOI of version v0.1.0, the version described in the paper."
 keywords:
   - microkinetic modelling
   - heterogeneous catalysis

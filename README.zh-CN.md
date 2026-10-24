@@ -1,5 +1,8 @@
 # KinSTEP（中文版）
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23613003.svg)](https://doi.org/10.5281/zenodo.23613003)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+
 > 英文版 [`README.md`](README.md) 是发布正本（CPC 的读者看英文）；本文与它内容一一对应。
 
 **Kin**etics + **S**ono / **T**hermal / **E**lectro / **P**hoto —— 一个内核，四种催化模态。

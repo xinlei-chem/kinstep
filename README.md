@@ -1,5 +1,8 @@
 # KinSTEP
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23613003.svg)](https://doi.org/10.5281/zenodo.23613003)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](LICENSE)
+
 **Kin**etics + **S**ono / **T**hermal / **E**lectro / **P**hoto — one core, four catalytic modalities.
 
 Microkinetic modelling in pure Python: start from elementary reaction equations written the way you

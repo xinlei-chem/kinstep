@@ -3,5 +3,5 @@ Highlights
 One verified solver spans thermal, electro-, photo- and sonocatalysis
 Photo and electro drivers compose into photoelectrocatalysis with no extra code
 A four-level ladder escalates to arbitrary precision when 1-z underflows
-Verified digit-by-digit against three independent references, down to 2.2e-16
+Verified digit-by-digit against four independent references, down to 2.2e-16
 Cavitation: the rate at the mean condition is wrong by 23 orders of magnitude

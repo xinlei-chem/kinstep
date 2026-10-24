@@ -42,10 +42,10 @@ sonocatalysis; degree of rate control; volcano plot; arbitrary precision
 |---|---|
 | *Program Title* | KinSTEP |
 | *CPC Library link to program files* | (to be added by Technical Editor) |
-| *Developer's repository link* | https://github.com/xinlei-chem/kinstep |
+| *Developer's repository link* | https://github.com/xinlei-chem/kinstep (version v0.1.0 archived at https://doi.org/10.5281/zenodo.23613004) |
 | *Code Ocean capsule* | (to be added by Technical Editor) |
 | *Licensing provisions* | GPL-3.0-or-later |
-| *Programming language* | Python 3.11+ |
+| *Programming language* | Python 3.9+ (tested on CPython 3.12) |
 | *Supplementary material* | Supplementary Information (verification tables, constant conventions, benchmark data, full self-check output) |
 | *External routines/libraries* | NumPy and SciPy (required); `mpmath` and `matplotlib` (optional extras, used for arbitrary-precision escalation and for plotting respectively). No compiled extension, no build step. |
 | *Typical running time* | A single steady state solves in well under a second. On one core of a desktop CPU the 401-point descriptor scan of Section 4 takes 4.2 s (1.7 s if arbitrary precision is disabled), the 315-point flow-reactor map 7.8 s, and the 4992-point four-modality map of Fig. 4 about 20 min. Peak resident memory stays below 100 MB in all of these, dominated by the NumPy/SciPy import footprint rather than by the model. |
@@ -109,8 +109,8 @@ CO*1 + O*2 -> CO2 + *1 + *2
 ```
 
 where `*` denotes a site, `<->`/`->` reversible/irreversible steps, `(l)` the liquid phase and `e-`
-an electron. The parser builds the stoichiometric matrix $\nu$ and **counts the electron
-stoichiometry $\nu_e$ from the equation itself** (products minus reactants, positive for oxidation),
+an electron. The parser builds the stoichiometric matrix $\nu$ and counts the electron
+stoichiometry $\nu_e$ **from the equation itself** (products minus reactants, positive for oxidation),
 removing the single most sign-error-prone input.
 
 Rates are evaluated in the factorised form
@@ -222,8 +222,8 @@ Evaluating $1-z$ as $1-\exp(\ln z)$ loses all significance as $z\to1$ — the te
 catastrophic cancellation [25,26]: at a true $1-z$ of
 $10^{-12}$ the relative error is already $2.2\times10^{-5}$, and $8.0\times10^{-4}$ at $10^{-14}$.
 Using $-\mathrm{expm1}(\ln z)$ removes this error entirely (measured relative error zero at both
-values). **The bottleneck is therefore not the evaluation of $1-z$ but the absolute accuracy of
-$\ln z$ itself**, which is a sum of terms of order ten and is consequently accurate to about
+values). The bottleneck is therefore **not** the evaluation of $1-z$ but the absolute accuracy of
+$\ln z$ itself, which is a sum of terms of order ten and is consequently accurate to about
 $10^{-16}$ in absolute terms. No reformulation in double precision can recover $1-z\sim10^{-30}$.
 
 This observation has a second, more useful consequence. A quasi-equilibrated step pins the coverages
@@ -562,6 +562,10 @@ and its example files are not included, but the numerical values this work compa
 of arrays, listed in the Supplementary Information — are archived with the deposit, as the values
 compared against in a paper normally are. Where a user has the original distribution, the tests read
 it directly and one assertion compares the two element by element.
+
+The version described in this paper, v0.1.0, is archived at
+https://doi.org/10.5281/zenodo.23613004; the concept DOI
+https://doi.org/10.5281/zenodo.23613003 always resolves to the most recent release.
 
 ## Funding
 

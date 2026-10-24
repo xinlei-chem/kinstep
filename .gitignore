@@ -22,6 +22,13 @@ paper/SI/*.png
 # ── 改稿时的时间戳备份，绝不进公开仓库 ──
 *.bak.*
 
+# ── 投稿私有材料，绝不进公开仓库 ──
+# suggested_reviewers.md 含第三方学者的姓名与邮箱（隐私），
+# 以及"回避哪些审稿人及其理由"（投稿策略）；cover letter 同属投稿私有文书。
+# 成品副本放在仓库外的 ~/Leixin/工具/CPC投稿_KinSTEP_20261024/。
+paper/cover_letter*
+paper/suggested_reviewers.md
+
 # ── 本地环境 ──
 .venv/
 .ipynb_checkpoints/
