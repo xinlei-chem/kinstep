@@ -548,8 +548,8 @@ Data curation, Writing – original draft, Writing – review & editing, Visuali
 
 ## Declaration of competing interest
 
-The authors declare that they have no known competing financial interests or personal relationships
-that could have appeared to influence the work reported in this paper.
+The author declares no known competing financial interests or personal relationships that could have
+appeared to influence the work reported in this paper.
 
 ## Data availability
 
